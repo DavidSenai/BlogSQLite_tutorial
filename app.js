@@ -1,8 +1,12 @@
 const express = require("express"); //importou a classe
 
-const port = 3000; // porta TCP do servidor HTTP da aplicação
+const port = 8000; // porta TCP do servidor HTTP da aplicação
 
 const app = express(); //cria istancia da classe express
+
+const index = "<a href='/sobre'> Sobre </a><a href='/info'> Info </a>";
+const sobre = 'vc está na página "Sobre"<br><a href="/">Voltar</a>';
+const info = 'vc está na página "Info"<br><a href="/">Voltar</a>';
 
 // Metodo express. get necessita de dois parâmetros
 //Na ARROW FUNCTION, O primeiro são dados do servidor (REQUISITION - 'req')
@@ -11,6 +15,13 @@ app.get("/", (req, res) => {
   res.send("Olá SESI!");
 });
 
+app.get("/sobre", (req, res) => {
+  res.send('Vc está na pagina "Sobre"');
+});
+
+app.get("/info", (req, res) => {
+  res.send('Vc está na página"Info"');
+});
 //app.listen() deve ser o último comando da aplicação (app.js)
 app.listen(port, () => {
   console.log(`Servidor sendo executado na porta ${port}!`);
