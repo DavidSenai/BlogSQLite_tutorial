@@ -7,11 +7,18 @@ const app = express(); //Instância para o uso do Express
 
 // Cria conexão com o banco de dados
 const db = new sqlite3.Database("user.db"); //Instâcia para uso do Sqlite3, e usa o arquivo 'user.db'
+
 db.serialize(() => {
+  // Este metodo permite enviar comandos SQL em modo 'sequencial'
   db.run(
     "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT)"
   );
 });
+
+app.use("/static", express.static(__dirname + "/static"));
+
+// Configurar EJS como o motor de visualização
+app.set("view engine", "ejs");
 
 const Home =
   "<a href='/sobre'> Sobre </a><a href='/Login'> Login </a><a href='/cadastro'> Cadastro </a>";
