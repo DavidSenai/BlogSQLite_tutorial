@@ -5,14 +5,13 @@ const port = 8000; // porta TCP do servidor HTTP da aplicação
 
 const app = express(); //Instância para o uso do Express
 
+// Cria conexão com o banco de dados
 const db = new sqlite3.Database("user.db"); //Instâcia para uso do Sqlite3, e usa o arquivo 'user.db'
 db.serialize(() => {
   db.run(
     "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT)"
   );
 });
-
-// Cria conexão com o banco de dados
 
 const Home =
   "<a href='/sobre'> Sobre </a><a href='/Login'> Login </a><a href='/cadastro'> Cadastro </a>";
