@@ -30,7 +30,8 @@ const Cadastro = 'vc está na página "Cadastro"<br><a href="/">Voltar</a>';
 //Na ARROW FUNCTION, O primeiro são dados do servidor (REQUISITION - 'req')
 // o segundo sao os dados que serao enviados ao cliente (result - 'res')
 app.get("/", (req, res) => {
-  res.send(Home);
+  // res.send(Home);
+  res.render("index");
 });
 
 app.get("/sobre", (req, res) => {
@@ -38,7 +39,11 @@ app.get("/sobre", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-  res.send(Login);
+  res.render("login");
+});
+
+app.post("/login", (req, res) => {
+  res.send("Login ainda não implementado.");
 });
 
 app.get("/cadastro", (req, res) => {
