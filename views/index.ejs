@@ -8,7 +8,7 @@
     <!-- Link CSS externo -->
     <link
       rel="stylesheet"
-      href="../static/styles/styles.css"
+      href="/static/styles/styles.css"
       class="stylesheet"
     />
 
@@ -24,13 +24,13 @@
           descubra novos lugares ao redor do mundo!
         </p>
       </div>
-      <form id="cadastroForm">
+      <form id="cadastroForm" action="/cadastro" method="post">
         <div class="title">
           <h1>Cadastre-se</h1>
           <p>Preencha os campos abaixo e torne-se parte da nossa comunidade</p>
         </div>
         <div class="input_data">
-          <input type="text" id="nome" name="nome" required />
+          <input type="text" id="nome" name="username" required />
           <label for="">Nome</label>
         </div>
         <div class="input_data">
@@ -45,21 +45,21 @@
           <input
             type="password"
             id="confirmapassword"
-            name="password"
+            name="confirmarsenha"
             required
           />
           <label for="">Confirmar senha</label>
         </div>
         <div class="input_data">
-          <input type="tel" id="tel" name="tel" required />
+          <input type="tel" id="tel" name="celular" required />
           <label for="">Contato</label>
         </div>
         <div class="input_data">
-          <input type="text" id="CPF" name="text" required />
+          <input type="text" id="CPF" name="cpf" required />
           <label for="">CPF</label>
         </div>
         <div class="input_data">
-          <input type="text" id="RG" name="text" required />
+          <input type="text" id="RG" name="rg" required />
           <label for="">RG</label>
         </div>
         <div class="btnArea">

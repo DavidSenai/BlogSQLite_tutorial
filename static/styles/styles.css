@@ -1,11 +1,11 @@
 @font-face {
   font-family: "Copperplate";
-  src: url("../Fonts/Copperplate.otf");
+  src: url("/static/Fonts/Copperplate.otf");
 }
 
 @font-face {
   font-family: "JoseFins";
-  src: url("../Fonts/JosefinSans.ttf");
+  src: url("/static/Fonts/JosefinSans.ttf");
 }
 
 * {

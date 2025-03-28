@@ -1,5 +1,6 @@
 const express = require("express"); //importou a classe
 const sqlite3 = require("sqlite3");
+const bodyParser = require("body-parser"); //importa o body-parser
 
 const port = 8000; // porta TCP do servidor HTTP da aplicação
 
@@ -11,20 +12,29 @@ const db = new sqlite3.Database("user.db"); //Instâcia para uso do Sqlite3, e u
 db.serialize(() => {
   // Este metodo permite enviar comandos SQL em modo 'sequencial'
   db.run(
-    "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT)"
+    `CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, cofirmarsenha TEXT, email TEXT, celular TEXT, cpf TEXT, rg TEXT)`
   );
 });
 
+// __dirname é a variavel interna do nodejs que guarda o caminho absolute do projeto, no SO
+// console.log(__dirname + "/static");
+
+// Aqui será acrescentado uma rota "/static" para a pasta __dirname + "/static"
+// O app.use é usado para acrescentar rotas novas para o Express gerenciar e pode usar
+// Middleware para isto, que neste caso é o express.static que gerencia rotas estaticas
 app.use("/static", express.static(__dirname + "/static"));
+
+//
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Configurar EJS como o motor de visualização
 app.set("view engine", "ejs");
 
-const Home =
-  "<a href='/sobre'> Sobre </a><a href='/Login'> Login </a><a href='/cadastro'> Cadastro </a>";
-const Sobre = 'vc está na página "Sobre"<br><a href="/">Voltar</a>';
-const Login = 'vc está na página "Login"<br><a href="/">Voltar</a>';
-const Cadastro = 'vc está na página "Cadastro"<br><a href="/">Voltar</a>';
+// const Home =
+//   "<a href='/sobre'> Sobre </a><a href='/Login'> Login </a><a href='/cadastro'> Cadastro </a>";
+// const Sobre = 'vc está na página "Sobre"<br><a href="/">Voltar</a>';
+// const Login = 'vc está na página "Login"<br><a href="/">Voltar</a>';
+// const Cadastro = 'vc está na página "Cadastro"<br><a href="/">Voltar</a>';
 
 // Metodo express. get necessita de dois parâmetros
 //Na ARROW FUNCTION, O primeiro são dados do servidor (REQUISITION - 'req')
@@ -47,7 +57,16 @@ app.post("/login", (req, res) => {
 });
 
 app.get("/cadastro", (req, res) => {
-  res.send(Cadastro);
+  res.send(cadastro);
+});
+
+app.post("/cadastro", (req, res) => {
+  !req.body
+    ? console.log(JSON.stringify(req.body))
+    : console.log(`Body vazio: ${req.body}`);
+  res.send(
+    `Bem vindo usuario: ${req.body.username}, seu email é ${req.body.email}`
+  );
 });
 //app.listen() deve ser o último comando da aplicação (app.js)
 app.listen(port, () => {
