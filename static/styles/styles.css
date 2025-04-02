@@ -1,17 +1,18 @@
 @font-face {
-  font-family: "Copperplate";
-  src: url("/static/Fonts/Copperplate.otf");
-}
-
-@font-face {
   font-family: "JoseFins";
   src: url("/static/Fonts/JosefinSans.ttf");
 }
 
+@font-face {
+  font-family: "Copperplate";
+  src: url("/static/Fonts/Copperplate.otf");
+}
+
 * {
-  box-sizing: border-box;
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
+  text-decoration: none;
 }
 
 body {
@@ -19,8 +20,109 @@ body {
   background-color: #375534;
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+header {
+  width: 100%;
+  padding: 10px 15px;
+  background-color: #0f2a1d;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .logo {
+  color: #fff;
+  font-size: 3em;
+  letter-spacing: 1.5px;
+}
+
+header nav a {
+  color: #fff;
+  font-size: 1.5em;
+  margin-right: 16px;
+}
+
+header nav a:hover {
+  color: #e3eed4;
+}
+
+.container_rain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 400px;
+  height: 100vh;
+  background-color: transparent;
+}
+
+.cloud {
+  position: absolute;
+  width: 250px;
+  height: 100px;
+  background: url("/static/Images/nuvem.png") center / cover no-repeat;
+  filter: drop-shadow(2px 2px 20px #e3eed4);
+}
+
+.cloud:nth-child(1) {
+  top: 2.5%;
+  left: 5%;
+}
+
+.cloud:nth-child(2) {
+  z-index: 3000;
+  top: 2.5%;
+  left: 24%;
+}
+
+.cloud:nth-child(3) {
+  z-index: 3000;
+  top: 9.5%;
+  left: 5%;
+}
+
+.rain {
+  background-color: #e3eed4;
+  width: 5px;
+  height: 5px;
+  border-radius: 0 50% 50% 50%;
+  transform: rotate(45deg);
+  box-shadow: inset -25px 10px 0px -10px #fefefe;
+  z-index: 1000;
+  position: absolute;
+  top: 90px;
+
+  transform-origin: bottom;
+  animation: animate 2s linear infinite;
+}
+
+@keyframes animate {
+  0% {
+    transform: translateY(0) scaleY(1);
+    opacity: 1;
+  }
+
+  60% {
+    transform: translateY(80vh) scaleY(1);
+    opacity: 1;
+  }
+
+  80% {
+    transform: translateY(80vh) scaleY(0.2);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: translateY(80vh) scaleY(0.2);
+    opacity: 0;
+  }
 }
 
 .container {
@@ -32,7 +134,7 @@ body {
 
   display: grid;
   grid-template-columns: 40% 60%;
-  grid-auto-rows: 1fr;
+  grid-template-rows: 1fr;
   justify-items: center;
   align-items: center;
 
@@ -42,17 +144,16 @@ body {
 .image_container {
   width: 100%;
   height: 100%;
-  background: url("../Images/wallpaper.jpg") center / cover no-repeat;
+  background: url("/static/Images/wallpaper.jpg") center / cover no-repeat;
   border-radius: 0 30px 30px 0;
 
   padding-left: 10%;
   position: relative;
+  overflow: hidden;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  overflow: hidden;
 }
 
 .image_container::before {
@@ -68,9 +169,9 @@ body {
 
 .image_container h1,
 .image_container p {
-  color: #e3eed4;
   position: relative;
   z-index: 2;
+  color: #e3eed4;
 }
 
 .image_container h1 {
@@ -132,7 +233,9 @@ body {
   font-size: 11px;
   margin-top: 5px;
   height: 30px;
+
   padding: 5px 10px;
+
   border: none;
   outline: 0;
   background-color: transparent;
@@ -164,7 +267,7 @@ body {
 }
 
 #cadastroForm .btnArea .msgError {
-  margin-top: 10px;
+  margin-bottom: 10px;
   height: 25px;
   color: #ff0000;
   font-style: italic;

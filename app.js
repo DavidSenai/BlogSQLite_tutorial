@@ -42,7 +42,8 @@ const cadastro = 'vc está na página "Cadastro"<br><a href="/">Voltar</a>';
 app.get("/", (req, res) => {
   // res.send(Home);
   console.log("GET /index");
-  res.redirect("/cadastro"); // Redireciona para a ROTA cadastro
+  res.render("index");
+  // res.redirect("/cadastro"); // Redireciona para a ROTA cadastro
 });
 
 app.get("/sobre", (req, res) => {
