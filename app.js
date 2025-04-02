@@ -24,46 +24,52 @@ db.serialize(() => {
 // Middleware para isto, que neste caso é o express.static que gerencia rotas estaticas
 app.use("/static", express.static(__dirname + "/static"));
 
-//
+// MIddleware para processar as requisições do Body Parameters do cliente
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Configurar EJS como o motor de visualização
 app.set("view engine", "ejs");
 
-// const Home =
-//   "<a href='/sobre'> Sobre </a><a href='/Login'> Login </a><a href='/cadastro'> Cadastro </a>";
-// const Sobre = 'vc está na página "Sobre"<br><a href="/">Voltar</a>';
-// const Login = 'vc está na página "Login"<br><a href="/">Voltar</a>';
-// const Cadastro = 'vc está na página "Cadastro"<br><a href="/">Voltar</a>';
+const Home =
+  "<a href='/sobre'> Sobre </a><a href='/Login'> Login </a><a href='/cadastro'> Cadastro </a>";
+const Sobre = 'vc está na página "Sobre"<br><a href="/">Voltar</a>';
+const Login = 'vc está na página "Login"<br><a href="/">Voltar</a>';
+const cadastro = 'vc está na página "Cadastro"<br><a href="/">Voltar</a>';
 
 // Metodo express. get necessita de dois parâmetros
 //Na ARROW FUNCTION, O primeiro são dados do servidor (REQUISITION - 'req')
 // o segundo sao os dados que serao enviados ao cliente (result - 'res')
 app.get("/", (req, res) => {
   // res.send(Home);
-  res.render("index");
+  console.log("GET /index");
+  res.redirect("/cadastro"); // Redireciona para a ROTA cadastro
 });
 
 app.get("/sobre", (req, res) => {
-  res.send(Sobre);
+  console.log("GET /sobre");
+  res.send("sobre");
 });
 
 app.get("/login", (req, res) => {
+  console.log("GET /login");
   res.render("login");
 });
 
 app.post("/login", (req, res) => {
-  res.send("Login ainda não implementado.");
+  console.log("POST /login");
+  res.send("Login ainda não implementado");
 });
 
 app.get("/cadastro", (req, res) => {
-  res.send(cadastro);
+  console.log("GET /cadastro");
+  res.render("cadastro");
 });
 
 app.post("/cadastro", (req, res) => {
   !req.body
     ? console.log(JSON.stringify(req.body))
     : console.log(`Body vazio: ${req.body}`);
+  console.log("POST /cadastro");
   res.send(
     `Bem vindo usuario: ${req.body.username}, seu email é ${req.body.email}`
   );
