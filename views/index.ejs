@@ -16,15 +16,7 @@
     <script src="../static/scripts/scripts.js" defer></script>
   </head>
   <body>
-    <header>
-      <a href="" class="logo">LOGO</a>
-      <nav>
-        <a href="">Home</a>
-        <a href="/sobre">Sobre</a>
-        <a href="/cadastro">Cadastro</a>
-        <a href="/login">Login</a>
-      </nav>
-    </header>
+    <%- include("menu") %>
     <section class="container">
       <div class="image_container">
         <h1>Crie sua conta</h1>
@@ -77,5 +69,6 @@
         </div>
       </form>
     </section>
+    <%- include("rodape") %>
   </body>
 </html>

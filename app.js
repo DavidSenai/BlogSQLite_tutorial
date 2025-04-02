@@ -12,7 +12,7 @@ const db = new sqlite3.Database("user.db"); //Instâcia para uso do Sqlite3, e u
 db.serialize(() => {
   // Este metodo permite enviar comandos SQL em modo 'sequencial'
   db.run(
-    `CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, cofirmarsenha TEXT, email TEXT, celular TEXT, cpf TEXT, rg TEXT)`
+    `CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, email TEXT, celular TEXT, cpf TEXT, rg TEXT)`
   );
 });
 
@@ -67,13 +67,39 @@ app.get("/cadastro", (req, res) => {
 });
 
 app.post("/cadastro", (req, res) => {
-  !req.body
-    ? console.log(JSON.stringify(req.body))
-    : console.log(`Body vazio: ${req.body}`);
   console.log("POST /cadastro");
-  res.send(
-    `Bem vindo usuario: ${req.body.username}, seu email é ${req.body.email}`
-  );
+  !req.body
+    ? console.log(`Body vazio: ${req.body}`)
+    : console.log(JSON.stringify(req.body));
+
+  const { username, password, email, celular, cpf, rg } = req.body;
+  // Colocar aqui validações e inclusão no banco de dados do cadastro do usuário
+  // 1. Validar dados do usuário
+
+  // 2. Saber se ele já existe no banco
+  query = "SELECT * FROM users WHERE email=? OR cpf=? or rg=? OR username=?";
+  db.get(query, [email, cpf, rg, username], (err, row) => {
+    if (err) throw err;
+    console.log(`${(JSON, stringfy(row))}`);
+    if (row) {
+      // A variavel 'row' irá retornar os dados do banco de dados,
+      // executado atraves do SQL, variavel query
+      res.send("Usuário ja cadastrado, refaça o cadastro");
+    } else {
+      // 3. Se o usuário não existe no banco cadastrar
+      const insertQuery =
+        "INSERT INTO users (username, password, email, celular, cpf, rg) VALUES (?,?,?,?,?,?)";
+      db.run(
+        insertQuery,
+        [username, password, email, celular, cpf, rg],
+        (err) => {
+          // inserir a lógica do INSERT
+          if (err) throw err;
+          res.send("Usuário cadastrado com sucesso");
+        }
+      );
+    }
+  });
 });
 //app.listen() deve ser o último comando da aplicação (app.js)
 app.listen(port, () => {
