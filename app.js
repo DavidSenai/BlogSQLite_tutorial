@@ -77,10 +77,11 @@ app.post("/cadastro", (req, res) => {
   // 1. Validar dados do usuário
 
   // 2. Saber se ele já existe no banco
-  query = "SELECT * FROM users WHERE email=? OR cpf=? or rg=? OR username=?";
+  const query =
+    "SELECT * FROM users WHERE email=? OR cpf=? OR rg=? OR username=?";
   db.get(query, [email, cpf, rg, username], (err, row) => {
     if (err) throw err;
-    console.log(`${(JSON, stringfy(row))}`);
+    console.log(`${JSON.stringify(row)}`);
     if (row) {
       // A variavel 'row' irá retornar os dados do banco de dados,
       // executado atraves do SQL, variavel query
