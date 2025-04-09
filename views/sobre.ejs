@@ -13,18 +13,19 @@
     />
 
     <!-- Link JS externo -->
-    <script src="../static/scripts/scripts.js" defer></script>
+    <script src="/static/scripts/scripts.js" defer></script>
   </head>
   <body>
     <%- include("menu") %>
     <section class="container">
       <div class="image_container">
-        <h1>Crie sua conta</h1>
+        <h1>Sobre a empresa</h1>
         <p>
           Compartilhe suas aventuras e <br />
           descubra novos lugares ao redor do mundo!
         </p>
       </div>
+      <div><%- include("usertable") %></div>
     </section>
     <%- include("rodape") %>
   </body>

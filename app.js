@@ -48,7 +48,7 @@ app.get("/", (req, res) => {
 
 app.get("/sobre", (req, res) => {
   console.log("GET /sobre");
-  res.send("sobre");
+  res.render("sobre");
 });
 
 app.get("/login", (req, res) => {
@@ -69,8 +69,8 @@ app.get("/cadastro", (req, res) => {
 app.get("/usuarios", (req, res) => {
   const query = "SELECT * FROM users";
   db.all(query, (err, row) => {
-    console.log(`GET /usuarios ${JSON.stringify(row)}'`);
-    res.send("Lista de usuários.");
+    console.log(`GET /usuarios ${JSON.stringify(row)}`);
+    res.render("usertable");
   });
 });
 
