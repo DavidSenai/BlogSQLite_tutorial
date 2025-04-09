@@ -66,6 +66,14 @@ app.get("/cadastro", (req, res) => {
   res.render("cadastro");
 });
 
+app.get("/usuarios", (req, res) => {
+  const query = "SELECT * FROM users";
+  db.all(query, (err, row) => {
+    console.log(`GET /usuarios ${JSON.stringify(row)}'`);
+    res.send("Lista de usuários.");
+  });
+});
+
 app.post("/cadastro", (req, res) => {
   console.log("POST /cadastro");
   !req.body
