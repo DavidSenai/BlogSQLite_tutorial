@@ -42,18 +42,20 @@ const cadastro = 'vc está na página "Cadastro"<br><a href="/">Voltar</a>';
 app.get("/", (req, res) => {
   // res.send(Home);
   console.log("GET /index");
-  res.render("index");
+  res.render("pages/index", {
+    titulo: "Blog da turma I2HNA - SESI Nova Odessa",
+  });
   // res.redirect("/cadastro"); // Redireciona para a ROTA cadastro
 });
 
 app.get("/sobre", (req, res) => {
   console.log("GET /sobre");
-  res.render("sobre");
+  res.render("pages/sobre");
 });
 
 app.get("/login", (req, res) => {
   console.log("GET /login");
-  res.render("login");
+  res.render("pages/login");
 });
 
 app.post("/login", (req, res) => {
@@ -61,16 +63,21 @@ app.post("/login", (req, res) => {
   res.send("Login ainda não implementado");
 });
 
+app.get("/dashboard", (req, res) => {
+  console.log("GET /dashboard");
+  res.render("pages/dashboard");
+});
+
 app.get("/cadastro", (req, res) => {
   console.log("GET /cadastro");
-  res.render("cadastro");
+  res.render("pages/cadastro");
 });
 
 app.get("/usuarios", (req, res) => {
   const query = "SELECT * FROM users";
   db.all(query, (err, row) => {
     console.log(`GET /usuarios ${JSON.stringify(row)}`);
-    res.render("usertable");
+    res.render("pages/usertable");
   });
 });
 
