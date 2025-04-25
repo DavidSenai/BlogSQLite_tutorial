@@ -1,21 +1,22 @@
-<table>
-  <thead>
-    <tr>
-      <td>ID</td>
-      <td>Nome</td>
-      <td>Email</td>
-      <td>Celular</td>
-    </tr>
-  </thead>
-  <tbody>
-    <% for(let i = 1; i < 12; i++) {%> I
-    <tr>
-      <td><%= i %></td>
-      <td>NOME</td>
-      <td>EMAIL</td>
-      <td>CELULAR</td>
-    </tr>
-
-    <% } %>
-  </tbody>
-</table>
+<thead>
+  <tr>
+    <td>ID</td>
+    <td>Nome</td>
+    <td>Email</td>
+    <td>Celular</td>
+  </tr>
+</thead>
+<tbody>
+  <% for(let i = 1; i < 12; i++) {%>
+  <table>
+    <thead>
+      <tr>
+        <td><%= i %></td>
+        <td>NOME</td>
+        <td>EMAIL</td>
+        <td>CELULAR</td>
+      </tr>
+    </thead>
+  </table>
+  <% } %>
+</tbody>
