@@ -1,6 +1,7 @@
 const express = require("express"); //importou a classe
 const sqlite3 = require("sqlite3");
 const bodyParser = require("body-parser"); //importa o body-parser
+const session = require("express-session");
 
 const port = 8000; // porta TCP do servidor HTTP da aplicação
 
@@ -17,6 +18,14 @@ db.serialize(() => {
     `CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, email TEXT, celular TEXT, cpf TEXT, rg TEXT)`
   );
 });
+
+app.use(
+  session({
+    secret: "qualquersenha",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
 
 // __dirname é a variavel interna do nodejs que guarda o caminho absolute do projeto, no SO
 // console.log(__dirname + "/static");
@@ -62,7 +71,24 @@ app.get("/login", (req, res) => {
 
 app.post("/login", (req, res) => {
   console.log("POST /login");
-  res.send("Login ainda não implementado");
+  const { username, password } = req.body;
+
+  // Consultar o usuario no banco de dados
+  const query = "SELECT * FROM  users WHERE username = ? AND password = ?";
+
+  db.get(query, [username, password], (err, row) => {
+    if (err) throw err;
+
+    // Se usuário valido -> registra a sessão e redireciona para o dashboard
+    if (row) {
+      req.session.loggedin = true;
+      req.session.username = username;
+      res.redirect("/dashboard");
+    } // Se não, envia mensagem de erro (Usuário inválido)
+    else {
+      res.send("Usuário inválido");
+    }
+  });
 });
 
 app.get("/dashboard", (req, res) => {

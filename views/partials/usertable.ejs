@@ -1,22 +1,20 @@
-<thead>
-  <tr>
-    <td>ID</td>
-    <td>Nome</td>
-    <td>Email</td>
-    <td>Celular</td>
-  </tr>
-</thead>
-<tbody>
-  <% for(let i = 1; i < 12; i++) {%>
-  <table>
-    <thead>
-      <tr>
-        <td><%= i %></td>
-        <td>NOME</td>
-        <td>EMAIL</td>
-        <td>CELULAR</td>
-      </tr>
-    </thead>
-  </table>
-  <% } %>
-</tbody>
+<table>
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nome</th>
+      <th scope="col">Email</th>
+      <th scope="col">Celular</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(let i = 0; i < 9; i++) {%> <% if (i % 3 == 0) { %>
+    <tr>
+      <td><%= i %></td>
+      <td>NOME</td>
+      <td>EMAIL</td>
+      <td>CELULAR</td>
+    </tr>
+    <% } %> <% } %>
+  </tbody>
+</table>
