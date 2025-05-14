@@ -106,7 +106,7 @@ app.get("/dashboard", (req, res) => {
       if (err) throw err;
       //if (row) {
       console.log(rows);
-      res.render("pages/dashboard", { row: rows, req: req });
+      res.render("pages/dashboard", { ...config, row: rows, req: req });
       //}
     });
   } else {
