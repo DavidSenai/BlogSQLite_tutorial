@@ -1,20 +1,45 @@
 <table>
-  <thead>
+  <thead class="usertable">
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Nome</th>
       <th scope="col">Email</th>
       <th scope="col">Celular</th>
+      <th scope="col">Senha</th>
     </tr>
   </thead>
   <tbody>
-    <% for(let i = 0; i < 9; i++) {%> <% if (i % 3 == 0) { %>
-    <tr>
-      <td><%= i %></td>
-      <td>NOME</td>
-      <td>EMAIL</td>
-      <td>CELULAR</td>
-    </tr>
-    <% } %> <% } %>
+    <% let index=1; dados.forEach(user => { %>
+      <tr <%- req.session.username==user.username ? `style="color:white; font-style: bold;"` : ``%>>
+        <td><%= user.id %></td>
+        <td><%= user.username %></td>
+        <td><%= user.email %></td>
+        <td><%= user.celular %></td>
+        <td><%= user.password %></td>
+      </tr> 
+      <% index++; }); %>
+
   </tbody>
 </table>
+
+<style>
+  table {
+    width: 100%;
+    margin: 20px 0;
+    box-shadow: 0 0 10px black;
+  }
+  thead.usertable {
+    background-color: gray;
+  }
+  thead.usertable th {
+    padding: 12px;
+    color: #333;
+  }
+  tbody td {
+    padding: 12px;
+    color: #444;
+  }
+  tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.158);
+  }
+</style>

@@ -99,18 +99,21 @@ app.post("/login", (req, res) => {
 });
 
 app.get("/dashboard", (req, res) => {
-  if (req.session.loggedin) {
-    const query = "SELECT * FROM users";
+  console.log("GET /dashboard");
+  console.log(JSON.stringify(config));
 
-    db.all(query, (err, rows) => {
+  if (req.session.loggedin) {
+    db.all("SELECT * FROM users", [], (err, row) => {
       if (err) throw err;
-      //if (row) {
-      console.log(rows);
-      res.render("pages/dashboard", { ...config, row: rows, req: req });
-      //}
+      res.render("pages/dashboard", {
+        titulo: "DASHBOARD",
+        dados: row,
+        req: req,
+      });
     });
   } else {
-    res.send("Deu RED");
+    console.log("Tentativa de acesso a área restrita");
+    res.redirect("/");
   }
 });
 
