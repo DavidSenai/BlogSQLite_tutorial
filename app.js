@@ -56,6 +56,13 @@ app.get("/", (req, res) => {
 
   config = { titulo: "Blog da turma I2HNA - SESI Nova Odessa", rodape: "" };
   res.render("pages/index", { ...config, req: req });
+  console.log(
+    `${
+      req.session.username
+        ? `User ${req.session.username} logged in from IP ${req.connection.remoteAddress}`
+        : "User not logged in."
+    }  `
+  );
   // res.redirect("/cadastro"); // Redireciona para a ROTA cadastro
 });
 
@@ -92,13 +99,27 @@ app.post("/login", (req, res) => {
 });
 
 app.get("/dashboard", (req, res) => {
-  console.log("GET /dashboard");
-  res.render("pages/dashboard", { ...config, req: req });
+  if (req.session.loggedin) {
+    const query = "SELECT * FROM users";
+
+    db.all(query, (err, rows) => {
+      if (err) throw err;
+      //if (row) {
+      console.log(rows);
+      res.render("pages/dashboard", { row: rows, req: req });
+      //}
+    });
+  } else {
+    res.send("Deu RED");
+  }
 });
 
 app.get("/cadastro", (req, res) => {
-  console.log("GET /cadastro");
-  res.render("pages/cadastro", { ...config, req: req });
+  if (!req.session.loggedin) {
+    res.render("pages/cadastro", { ...config, req: req });
+  } else {
+    res.redirect("/dashboard", { ...config, req: req });
+  }
 });
 
 app.get("/usuarios", (req, res) => {
@@ -151,6 +172,12 @@ app.post("/cadastro", (req, res) => {
     }
   });
 });
+
+app.use("*", (req, res) => {
+  // Envia uma resposta de erro 404
+  res.status(404).render("pages/404", { ...config, req: req });
+});
+
 //app.listen() deve ser o último comando da aplicação (app.js)
 app.listen(port, () => {
   console.log(`Servidor sendo executado na porta ${port}!`);
